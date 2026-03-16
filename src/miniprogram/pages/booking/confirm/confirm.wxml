@@ -1,0 +1,95 @@
+<!--booking/confirm/confirm.wxml-->
+<view class="container">
+  <!-- 课程信息 -->
+  <view class="course-card card">
+    <image class="course-image" src="/images/yoga.jpg" mode="aspectFill"></image>
+    <view class="course-info">
+      <view class="course-header">
+        <text class="course-name">{{bookingInfo.courseName}}</text>
+        <text class="course-price">¥{{bookingInfo.price}}</text>
+      </view>
+      <view class="course-meta">
+        <text class="meta-item">教练: {{bookingInfo.coachName || '张教练'}}</text>
+        <text class="meta-item">时长: {{bookingInfo.duration || 60}}分钟</text>
+        <text class="meta-item">时间: {{bookingInfo.bookingTime}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 预约信息 -->
+  <view class="booking-info card">
+    <text class="section-title">预约信息</text>
+    <view class="info-row">
+      <text class="label">预约时间</text>
+      <text class="value">{{bookingInfo.bookingTime}}</text>
+    </view>
+    <view class="info-row">
+      <text class="label">预约人数</text>
+      <picker bindchange="bindPickerChange" value="{{index}}" range="{{array}}">
+        <view class="picker">
+          {{array[index]}}
+        </view>
+      </picker>
+    </view>
+    <view class="info-row">
+      <text class="label">联系手机</text>
+      <input class="input-field" placeholder="请输入您的手机号" value="{{phone}}" bindinput="bindPhoneInput"/>
+    </view>
+    <view class="info-row">
+      <text class="label">备注</text>
+      <textarea class="textarea-field" placeholder="如有特殊需求请填写" value="{{remark}}" bindinput="bindRemarkInput" maxlength="100"></textarea>
+    </view>
+  </view>
+
+  <!-- 费用信息 -->
+  <view class="fee-info card">
+    <text class="section-title">费用明细</text>
+    <view class="fee-row">
+      <text class="label">课程费用</text>
+      <text class="value">¥{{bookingInfo.price}}</text>
+    </view>
+    <view class="fee-row total">
+      <text class="label">总计</text>
+      <text class="value total-price">¥{{totalFee}}</text>
+    </view>
+  </view>
+
+  <!-- 课时余额 -->
+  <view class="balance-info card" wx:if="{{showCreditInfo}}">
+    <text class="section-title">课时余额</text>
+    <view class="balance-row">
+      <text class="label">当前课时</text>
+      <text class="value">{{creditBalance}} 课时</text>
+    </view>
+    <view class="balance-row">
+      <text class="label">本次消耗</text>
+      <text class="value">1 课时</text>
+    </view>
+    <view class="balance-row">
+      <text class="label">课时余额</text>
+      <text class="value">{{creditBalance - 1}} 课时</text>
+    </view>
+  </view>
+
+  <!-- 注意事项 -->
+  <view class="notice card">
+    <text class="section-title">注意事项</text>
+    <view class="notice-item">
+      <text class="bullet">•</text>
+      <text class="notice-text">请提前10分钟到达场馆做好准备</text>
+    </view>
+    <view class="notice-item">
+      <text class="bullet">•</text>
+      <text class="notice-text">如需取消预约，请提前3小时操作，否则将扣除1课时</text>
+    </view>
+    <view class="notice-item">
+      <text class="bullet">•</text>
+      <text class="notice-text">预约成功后可在"我的预约"中查看和管理</text>
+    </view>
+  </view>
+
+  <!-- 底部按钮 -->
+  <view class="bottom-action">
+    <button class="confirm-btn btn-primary" bindtap="confirmBooking">确认预约</button>
+  </view>
+</view>

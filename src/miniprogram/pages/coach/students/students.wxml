@@ -1,0 +1,56 @@
+<!--pages/coach/students/students.wxml-->
+<view class="container">
+  <!-- 搜索栏 -->
+  <view class="search-bar">
+    <input 
+      class="search-input" 
+      placeholder="搜索学员姓名或手机号" 
+      value="{{searchKeyword}}" 
+      bindinput="onSearchInput"
+    />
+    <button class="search-btn" bindtap="onSearch">搜索</button>
+  </view>
+
+  <!-- 学员分类标签 -->
+  <view class="student-tabs">
+    <view class="tab {{currentTab === 'all' ? 'active' : ''}}" bindtap="switchTab" data-tab="all">全部学员</view>
+    <view class="tab {{currentTab === 'today' ? 'active' : ''}}" bindtap="switchTab" data-tab="today">今日学员</view>
+    <view class="tab {{currentTab === 'recent' ? 'active' : ''}}" bindtap="switchTab" data-tab="recent">近期活跃</view>
+  </view>
+
+  <!-- 学员列表 -->
+  <view class="student-list">
+    <view class="student-item" wx:for="{{studentList}}" wx:key="id" bindtap="viewStudentDetail" data-id="{{item.id}}">
+      <view class="student-avatar">{{item.avatar || '👤'}}</view>
+      <view class="student-info">
+        <view class="student-header">
+          <text class="student-name">{{item.name}}</text>
+          <text class="student-gender {{item.gender}}">{{item.genderText}}</text>
+        </view>
+        <view class="student-meta">
+          <text class="student-phone">{{item.phone}}</text>
+          <text class="student-level {{item.level}}">{{item.levelText}}</text>
+        </view>
+        <view class="student-stats">
+          <text class="stat-item">预约: {{item.bookingCount}}</text>
+          <text class="stat-item">上课: {{item.attendanceCount}}</text>
+          <text class="stat-item">课时: {{item.creditBalance}}</text>
+        </view>
+      </view>
+      <view class="student-actions">
+        <button class="action-btn contact" bindtap="contactStudent" data-phone="{{item.phone}}" catch:tap="stopPropagation">联系</button>
+        <button class="action-btn detail" bindtap="viewStudentDetail" data-id="{{item.id}}" catch:tap="stopPropagation">详情</button>
+      </view>
+    </view>
+  </view>
+
+  <!-- 空状态 -->
+  <view class="empty-state" wx:if="{{studentList.length === 0}}">
+    <text>{{emptyText}}</text>
+  </view>
+
+  <!-- 快捷操作 -->
+  <view class="floating-action">
+    <button class="fab" bindtap="exportStudentList">📊 导出名单</button>
+  </view>
+</view>

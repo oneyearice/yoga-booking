@@ -1,0 +1,60 @@
+<!--user/bookings/bookings.wxml-->
+<view class="container">
+  <!-- 标题栏 -->
+  <view class="title-bar">
+    <text class="title">我的预约</text>
+  </view>
+
+  <!-- 状态标签页 -->
+  <view class="tab-container">
+    <view class="tab-item {{currentTab === 'all' ? 'active' : ''}}" bindtap="switchTab" data-tab="all">全部</view>
+    <view class="tab-item {{currentTab === 'upcoming' ? 'active' : ''}}" bindtap="switchTab" data-tab="upcoming">待上课</view>
+    <view class="tab-item {{currentTab === 'completed' ? 'active' : ''}}" bindtap="switchTab" data-tab="completed">已完成</view>
+    <view class="tab-item {{currentTab === 'cancelled' ? 'active' : ''}}" bindtap="switchTab" data-tab="cancelled">已取消</view>
+  </view>
+
+  <!-- 预约列表 -->
+  <view class="booking-list">
+    <view class="booking-card" wx:for="{{bookingList}}" wx:key="id" bindtap="viewBookingDetail" data-id="{{item.id}}">
+      <view class="card-header">
+        <text class="course-name">{{item.courseName}}</text>
+        <text class="status {{item.status}}">{{item.statusText}}</text>
+      </view>
+      
+      <view class="card-body">
+        <view class="info-row">
+          <text class="label">教练:</text>
+          <text class="value">{{item.coachName}}</text>
+        </view>
+        <view class="info-row">
+          <text class="label">时间:</text>
+          <text class="value">{{item.bookingDate}} {{item.bookingTime}}</text>
+        </view>
+        <view class="info-row">
+          <text class="label">人数:</text>
+          <text class="value">{{item.peopleCount}}人</text>
+        </view>
+        <view class="info-row">
+          <text class="label">地点:</text>
+          <text class="value">{{item.location}}</text>
+        </view>
+      </view>
+
+      <view class="card-footer">
+        <text class="booking-id">预约号: {{item.bookingId}}</text>
+        <text class="booking-time">预约时间: {{item.createTime}}</text>
+      </view>
+
+      <!-- 操作按钮 -->
+      <view class="action-buttons" wx:if="{{item.status === 'upcoming'}}">
+        <button class="btn btn-outline" bindtap="cancelBooking" data-id="{{item.id}}" catch:tap="stopPropagation">取消预约</button>
+        <button class="btn btn-primary" bindtap="contactCoach" data-coach="{{item.coachName}}" catch:tap="stopPropagation">联系教练</button>
+      </view>
+    </view>
+  </view>
+
+  <!-- 空状态 -->
+  <view class="empty-state" wx:if="{{bookingList.length === 0}}">
+    <text>{{emptyText}}</text>
+  </view>
+</view>

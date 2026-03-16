@@ -1,0 +1,120 @@
+<!--pages/admin/courses/courses.wxml-->
+<view class="container">
+  <!-- 顶部操作栏 -->
+  <view class="top-actions">
+    <button class="action-btn primary" bindtap="addCourse">➕ 新增课程</button>
+    <button class="action-btn secondary" bindtap="refreshList">🔄 刷新</button>
+  </view>
+
+  <!-- 搜索和筛选 -->
+  <view class="search-filter">
+    <input 
+      class="search-input" 
+      placeholder="搜索课程名称" 
+      value="{{searchKeyword}}" 
+      bindinput="onSearchInput"
+    />
+    <button class="search-btn" bindtap="onSearch">搜索</button>
+    
+    <view class="filter-options">
+      <picker class="filter-picker" range="{{categoryOptions}}" bindchange="onCategoryChange">
+        <view class="picker-label">分类: {{categoryOptions[categoryIndex]}}</view>
+      </picker>
+      <picker class="filter-picker" range="{{statusOptions}}" bindchange="onStatusChange">
+        <view class="picker-label">状态: {{statusOptions[statusIndex]}}</view>
+      </picker>
+    </view>
+  </view>
+
+  <!-- 课程列表 -->
+  <view class="course-list">
+    <view class="course-item" wx:for="{{courseList}}" wx:key="id">
+      <view class="course-info">
+        <view class="course-header">
+          <text class="course-name">{{item.name}}</text>
+          <view class="course-tags">
+            <text class="tag category">{{item.category}}</text>
+            <text class="tag status {{item.status}}">{{item.statusText}}</text>
+          </view>
+        </view>
+        
+        <view class="course-meta">
+          <text class="meta-item">教练: {{item.coachName}}</text>
+          <text class="meta-item">时长: {{item.duration}}分钟</text>
+          <text class="meta-item">价格: ¥{{item.price}}</text>
+          <text class="meta-item">容量: {{item.capacity}}人</text>
+        </view>
+        
+        <view class="course-description">{{item.description}}</view>
+      </view>
+      
+      <view class="course-actions">
+        <button class="action-btn edit" bindtap="editCourse" data-course="{{item}}">编辑</button>
+        <button class="action-btn delete" bindtap="deleteCourse" data-id="{{item.id}}">删除</button>
+        <button class="action-btn toggle" bindtap="toggleCourseStatus" data-id="{{item.id}}" data-status="{{item.status}}">
+          {{item.status === 'active' ? '停用' : '启用'}}
+        </button>
+      </view>
+    </view>
+  </view>
+
+  <!-- 分页 -->
+  <view class="pagination" wx:if="{{totalPages > 1}}">
+    <button class="page-btn" bindtap="prevPage" disabled="{{currentPage <= 1}}">上一页</button>
+    <text class="page-info">{{currentPage}} / {{totalPages}}</text>
+    <button class="page-btn" bindtap="nextPage" disabled="{{currentPage >= totalPages}}">下一页</button>
+  </view>
+
+  <!-- 空状态 -->
+  <view class="empty-state" wx:if="{{courseList.length === 0}}">
+    <text>暂无课程数据</text>
+  </view>
+
+  <!-- 添加/编辑课程弹窗 -->
+  <view class="modal" wx:if="{{showCourseModal}}">
+    <view class="modal-content">
+      <view class="modal-header">
+        <text class="modal-title">{{modalTitle}}</text>
+        <text class="close-btn" bindtap="closeModal">×</text>
+      </view>
+      <view class="modal-body">
+        <view class="form-group">
+          <text class="form-label">课程名称 *</text>
+          <input class="form-input" placeholder="请输入课程名称" value="{{formData.name}}" bindinput="onNameInput"/>
+        </view>
+        <view class="form-group">
+          <text class="form-label">课程分类 *</text>
+          <picker class="form-picker" range="{{categoryOptions}}" bindchange="onFormCategoryChange">
+            <view class="picker-display">{{formData.category || '请选择分类'}}</view>
+          </picker>
+        </view>
+        <view class="form-group">
+          <text class="form-label">教练 *</text>
+          <picker class="form-picker" range="{{coachOptions}}" bindchange="onFormCoachChange">
+            <view class="picker-display">{{formData.coachName || '请选择教练'}}</view>
+          </picker>
+        </view>
+        <view class="form-group">
+          <text class="form-label">课程时长(分钟) *</text>
+          <input class="form-input" placeholder="请输入时长" value="{{formData.duration}}" bindinput="onDurationInput" type="number"/>
+        </view>
+        <view class="form-group">
+          <text class="form-label">课程价格 *</text>
+          <input class="form-input" placeholder="请输入价格" value="{{formData.price}}" bindinput="onPriceInput" type="digit"/>
+        </view>
+        <view class="form-group">
+          <text class="form-label">最大容量 *</text>
+          <input class="form-input" placeholder="请输入最大容量" value="{{formData.capacity}}" bindinput="onCapacityInput" type="number"/>
+        </view>
+        <view class="form-group">
+          <text class="form-label">课程描述</text>
+          <textarea class="form-textarea" placeholder="请输入课程描述" value="{{formData.description}}" bindinput="onDescriptionInput" maxlength="200"></textarea>
+        </view>
+      </view>
+      <view class="modal-footer">
+        <button class="btn btn-secondary" bindtap="closeModal">取消</button>
+        <button class="btn btn-primary" bindtap="saveCourse">保存</button>
+      </view>
+    </view>
+  </view>
+</view>

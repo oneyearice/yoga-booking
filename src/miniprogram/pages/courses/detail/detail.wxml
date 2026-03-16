@@ -1,0 +1,79 @@
+<!--courses/detail/detail.wxml-->
+<view class="container">
+  <!-- 课程封面 -->
+  <view class="course-banner">
+    <image class="banner-image" src="{{courseDetail.coverImage}}" mode="aspectFill"></image>
+    <view class="banner-overlay">
+      <text class="course-name">{{courseDetail.name}}</text>
+      <text class="course-price">¥{{courseDetail.price}}</text>
+    </view>
+  </view>
+
+  <!-- 课程信息 -->
+  <view class="course-info card">
+    <view class="info-row">
+      <text class="info-label">教练</text>
+      <text class="info-value">{{courseDetail.coachName}}</text>
+    </view>
+    <view class="info-row">
+      <text class="info-label">时长</text>
+      <text class="info-value">{{courseDetail.duration}}分钟</text>
+    </view>
+    <view class="info-row">
+      <text class="info-label">分类</text>
+      <text class="info-value">{{courseDetail.category}}</text>
+    </view>
+    <view class="info-row">
+      <text class="info-label">容量</text>
+      <text class="info-value">{{courseDetail.capacity}}人</text>
+    </view>
+    <view class="info-row">
+      <text class="info-label">已预约</text>
+      <text class="info-value">{{courseDetail.bookedCount}}人</text>
+    </view>
+    <view class="info-row">
+      <text class="info-label">剩余名额</text>
+      <text class="info-value remaining-spots">{{courseDetail.capacity - courseDetail.bookedCount}}/{{courseDetail.capacity}}</text>
+    </view>
+  </view>
+
+  <!-- 课程描述 -->
+  <view class="course-description card">
+    <text class="section-title">课程介绍</text>
+    <text class="description-text">{{courseDetail.description}}</text>
+  </view>
+
+  <!-- 教练介绍 -->
+  <view class="coach-info card">
+    <text class="section-title">教练介绍</text>
+    <view class="coach-profile">
+      <view class="coach-avatar">👨‍🏫</view>
+      <view class="coach-details">
+        <text class="coach-name">{{courseDetail.coachName}}</text>
+        <text class="coach-desc">专业{{courseDetail.category}}教练，拥有5年教学经验</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 可预约时间 -->
+  <view class="schedule-section card">
+    <text class="section-title">可预约时间</text>
+    <view class="time-slots">
+      <view class="time-slot {{slot.available ? 'available' : 'unavailable'}}" 
+            wx:for="{{availableSlots}}" 
+            wx:key="id"
+            bindtap="selectTimeSlot" 
+            data-slot="{{item}}">
+        <text class="time">{{item.time}}</text>
+        <text class="date">{{item.date}}</text>
+        <text class="status">{{item.available ? '可预约' : '已约满'}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 底部操作栏 -->
+  <view class="bottom-action">
+    <button class="action-btn btn-outline" bindtap="addToFavorites">❤ 收藏</button>
+    <button class="action-btn btn-primary" bindtap="bookNow" disabled="{{!selectedSlot}}">立即预约</button>
+  </view>
+</view>

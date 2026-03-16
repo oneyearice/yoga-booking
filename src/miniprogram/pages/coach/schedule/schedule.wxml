@@ -1,0 +1,71 @@
+<!--pages/coach/schedule/schedule.wxml-->
+<view class="container">
+  <!-- 教练信息栏 -->
+  <view class="coach-header">
+    <view class="coach-info">
+      <text class="coach-avatar">教练</text>
+      <view class="coach-details">
+        <text class="coach-name">{{coachInfo.name}}</text>
+        <text class="coach-title">{{coachInfo.title}}</text>
+      </view>
+    </view>
+    <view class="coach-stats">
+      <view class="stat-item">
+        <text class="stat-number">{{coachInfo.todayClasses}}</text>
+        <text class="stat-label">今日课程</text>
+      </view>
+      <view class="stat-item">
+        <text class="stat-number">{{coachInfo.todayStudents}}</text>
+        <text class="stat-label">今日学员</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 日期选择器 -->
+  <view class="date-selector">
+    <picker mode="date" value="{{selectedDate}}" start="{{startDate}}" end="{{endDate}}" bindchange="bindDateChange">
+      <view class="picker-display">
+        <text>{{selectedDateText}}</text>
+        <text class="arrow">></text>
+      </view>
+    </picker>
+  </view>
+
+  <!-- 课程类型筛选 -->
+  <view class="filter-tabs">
+    <view class="tab {{currentFilter === 'all' ? 'active' : ''}}" bindtap="switchFilter" data-filter="all">全部</view>
+    <view class="tab {{currentFilter === 'group' ? 'active' : ''}}" bindtap="switchFilter" data-filter="group">团课</view>
+    <view class="tab {{currentFilter === 'private' ? 'active' : ''}}" bindtap="switchFilter" data-filter="private">私教</view>
+  </view>
+
+  <!-- 课程时间轴 -->
+  <view class="schedule-timeline">
+    <view class="timeline-item" wx:for="{{scheduleList}}" wx:key="id">
+      <view class="time-slot">
+        <text class="time">{{item.startTime}}-{{item.endTime}}</text>
+      </view>
+      <view class="class-card {{item.status}}" bindtap="viewClassDetail" data-id="{{item.id}}">
+        <view class="class-info">
+          <text class="class-name">{{item.className}}</text>
+          <text class="class-type {{item.type}}">{{item.typeText}}</text>
+        </view>
+        <view class="class-meta">
+          <text class="class-students">学员: {{item.studentCount}}/{{item.maxStudents}}</text>
+          <text class="class-status {{item.status}}">{{item.statusText}}</text>
+        </view>
+        <view class="class-location">地点: {{item.location}}</view>
+      </view>
+    </view>
+
+    <!-- 空状态 -->
+    <view class="empty-state" wx:if="{{scheduleList.length === 0}}">
+      <text>暂无课程安排</text>
+    </view>
+  </view>
+
+  <!-- 快速操作 -->
+  <view class="quick-actions">
+    <button class="action-btn" bindtap="viewStudentList">查看学员名单</button>
+    <button class="action-btn" bindtap="createClassReport">生成课时报告</button>
+  </view>
+</view>

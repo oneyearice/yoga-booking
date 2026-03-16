@@ -1,0 +1,100 @@
+<!--user/index/index.wxml-->
+<view class="container">
+  <!-- 用户信息头部 -->
+  <view class="user-header">
+    <view class="avatar-container" bindtap="goToProfileEdit">
+      <image class="avatar" src="{{userInfo.avatar || '/images/default-avatar.png'}}" mode="aspectFill"></image>
+      <text class="nickname">{{userInfo.nickName || '点击登录'}}</text>
+    </view>
+    <view class="credit-info" bindtap="goToRecharge">
+      <text class="credit-label">课时余额</text>
+      <text class="credit-count">{{userInfo.creditBalance || 0}} 课时</text>
+      <text class="icon">></text>
+    </view>
+  </view>
+
+  <!-- 快捷功能区 -->
+  <view class="quick-actions">
+    <view class="action-item" bindtap="goToMyBookings">
+      <view class="action-icon">📅</view>
+      <text class="action-text">我的预约</text>
+    </view>
+    <view class="action-item" bindtap="goToCourseHistory">
+      <view class="action-icon">📚</view>
+      <text class="action-text">课程记录</text>
+    </view>
+    <view class="action-item" bindtap="goToFavorites">
+      <view class="action-icon">❤️</view>
+      <text class="action-text">我的收藏</text>
+    </view>
+    <view class="action-item" bindtap="goToCoupons">
+      <view class="action-icon">💰</view>
+      <text class="action-text">优惠券</text>
+    </view>
+  </view>
+
+  <!-- 功能列表 -->
+  <view class="function-list">
+    <view class="list-item" bindtap="goToProfileEdit">
+      <view class="item-left">
+        <text class="item-icon">👤</text>
+        <text class="item-text">个人信息</text>
+      </view>
+      <text class="item-right">></text>
+    </view>
+    <view class="list-item" bindtap="goToBookingRecords">
+      <view class="item-left">
+        <text class="item-icon">📋</text>
+        <text class="item-text">预约记录</text>
+      </view>
+      <text class="item-right">></text>
+    </view>
+    <view class="list-item" bindtap="goToCreditHistory">
+      <view class="item-left">
+        <text class="item-icon">💳</text>
+        <text class="item-text">课时记录</text>
+      </view>
+      <text class="item-right">></text>
+    </view>
+    <view class="list-item" bindtap="goToAddressManage">
+      <view class="item-left">
+        <text class="item-icon">📍</text>
+        <text class="item-text">地址管理</text>
+      </view>
+      <text class="item-right">></text>
+    </view>
+    <view class="list-item" bindtap="goToCustomerService">
+      <view class="item-left">
+        <text class="item-icon">💬</text>
+        <text class="item-text">客服中心</text>
+      </view>
+      <text class="item-right">></text>
+    </view>
+    <view class="list-item" bindtap="goToSettings">
+      <view class="item-left">
+        <text class="item-icon">⚙️</text>
+        <text class="item-text">设置</text>
+      </view>
+      <text class="item-right">></text>
+    </view>
+  </view>
+
+  <!-- 预约状态概览 -->
+  <view class="booking-overview" wx:if="{{bookingStats.total > 0}}">
+    <text class="overview-title">预约概览</text>
+    <view class="stats-grid">
+      <view class="stat-item" bindtap="goToMyBookingsByStatus" data-status="upcoming">
+        <text class="stat-number">{{bookingStats.upcoming}}</text>
+        <text class="stat-label">待上课</text>
+      </view>
+      <view class="stat-item" bindtap="goToMyBookingsByStatus" data-status="completed">
+        <text class="stat-number">{{bookingStats.completed}}</text>
+        <text class="stat-label">已完成</text>
+      </view>
+      <view class="stat-item" bindtap="goToMyBookingsByStatus" data-status="cancelled">
+        <text class="stat-number">{{bookingStats.cancelled}}</text>
+        <text class="stat-label">已取消</text>
+      </view>
+    </view>
+  </view>
+</view>

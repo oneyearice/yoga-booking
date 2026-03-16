@@ -1,0 +1,43 @@
+<!--booking/list/list.wxml-->
+<view class="container">
+  <!-- 状态标签页 -->
+  <view class="tab-bar">
+    <view class="tab-item {{currentTab === 'all' ? 'active' : ''}}" bindtap="switchTab" data-tab="all">全部</view>
+    <view class="tab-item {{currentTab === 'upcoming' ? 'active' : ''}}" bindtap="switchTab" data-tab="upcoming">待上课</view>
+    <view class="tab-item {{currentTab === 'completed' ? 'active' : ''}}" bindtap="switchTab" data-tab="completed">已完成</view>
+    <view class="tab-item {{currentTab === 'cancelled' ? 'active' : ''}}" bindtap="switchTab" data-tab="cancelled">已取消</view>
+  </view>
+
+  <!-- 预约列表 -->
+  <view class="booking-list">
+    <view class="booking-item" wx:for="{{bookingList}}" wx:key="id">
+      <!-- 课程信息 -->
+      <view class="course-info" bindtap="viewBookingDetail" data-id="{{item.id}}">
+        <image class="course-image" src="{{item.courseCover}}" mode="aspectFill"></image>
+        <view class="course-details">
+          <view class="course-name">{{item.courseName}}</view>
+          <view class="coach-info">教练: {{item.coachName}}</view>
+          <view class="booking-time">{{item.bookingDate}} {{item.bookingTime}}</view>
+          <view class="booking-meta">
+            <text class="booking-status {{item.status}}">{{item.statusText}}</text>
+            <text class="people-count">{{item.peopleCount}}人</text>
+          </view>
+        </view>
+      </view>
+
+      <!-- 操作按钮 -->
+      <view class="action-buttons">
+        <button class="btn btn-outline" bindtap="contactCoach" data-coach="{{item.coachName}}" wx:if="{{item.status === 'upcoming'}}">联系教练</button>
+        <button class="btn btn-outline" bindtap="viewLocation" data-location="{{item.location}}" wx:if="{{item.status === 'upcoming'}}">查看位置</button>
+        <button class="btn btn-primary" bindtap="cancelBooking" data-id="{{item.id}}" wx:if="{{item.canCancel}}">取消预约</button>
+        <button class="btn btn-outline" bindtap="rebook" data-course="{{item.courseId}}" wx:if="{{item.status === 'completed' || item.status === 'cancelled'}}">再次预约</button>
+        <button class="btn btn-outline" bindtap="addReview" data-id="{{item.id}}" wx:if="{{item.status === 'completed' && !item.reviewed}}">写评价</button>
+      </view>
+    </view>
+  </view>
+
+  <!-- 空状态 -->
+  <view class="empty-state" wx:if="{{bookingList.length === 0}}">
+    <text>{{emptyText}}</text>
+  </view>
+</view>

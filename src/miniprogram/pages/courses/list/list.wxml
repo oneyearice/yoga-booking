@@ -1,0 +1,50 @@
+<!--courses/list/list.wxml-->
+<view class="container">
+  <!-- 搜索和筛选栏 -->
+  <view class="filter-bar">
+    <view class="search-box">
+      <input 
+        class="search-input" 
+        placeholder="搜索课程名称" 
+        value="{{searchKeyword}}" 
+        bindinput="onSearchInput"
+      />
+      <button class="search-btn" bindtap="onSearch">搜索</button>
+    </view>
+    
+    <view class="category-filter">
+      <view class="category-item {{currentCategory === 'all' ? 'active' : ''}}" bindtap="switchCategory" data-category="all">全部</view>
+      <view class="category-item {{currentCategory === 'yoga' ? 'active' : ''}}" bindtap="switchCategory" data-category="yoga">瑜伽</view>
+      <view class="category-item {{currentCategory === 'pilates' ? 'active' : ''}}" bindtap="switchCategory" data-category="pilates">普拉提</view>
+      <view class="category-item {{currentCategory === 'tuina' ? 'active' : ''}}" bindtap="switchCategory" data-category="tuina">推拿</view>
+      <view class="category-item {{currentCategory === 'moxibustion' ? 'active' : ''}}" bindtap="switchCategory" data-category="moxibustion">艾灸</view>
+    </view>
+  </view>
+
+  <!-- 课程列表 -->
+  <view class="course-list">
+    <view class="course-item" wx:for="{{courseList}}" wx:key="id" bindtap="viewCourseDetail" data-id="{{item.id}}">
+      <image class="course-image" src="{{item.coverImage}}" mode="aspectFill"></image>
+      <view class="course-content">
+        <view class="course-header">
+          <text class="course-name">{{item.name}}</text>
+          <text class="course-price">¥{{item.price}}</text>
+        </view>
+        <view class="course-meta">
+          <text class="coach-name">教练: {{item.coachName}}</text>
+          <text class="duration">{{item.duration}}分钟</text>
+        </view>
+        <view class="course-tags">
+          <text class="tag tag-primary">{{item.category}}</text>
+          <text class="spots">剩余 {{item.capacity - item.bookedCount}}/{{item.capacity}} 名额</text>
+        </view>
+        <view class="course-description">{{item.description}}</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 空状态 -->
+  <view class="empty-state" wx:if="{{courseList.length === 0}}">
+    <text>暂无符合条件的课程</text>
+  </view>
+</view>

@@ -1,0 +1,174 @@
+<!--pages/admin/schedule/schedule.wxml-->
+<view class="container">
+  <!-- 顶部操作栏 -->
+  <view class="top-actions">
+    <button class="action-btn primary" bindtap="addSchedule">➕ 新增排课</button>
+    <button class="action-btn secondary" bindtap="autoSchedule">🤖 自动排课</button>
+    <button class="action-btn secondary" bindtap="refreshList">🔄 刷新</button>
+  </view>
+
+  <!-- 日期筛选 -->
+  <view class="date-filter">
+    <picker mode="date" value="{{selectedDate}}" start="{{startDate}}" end="{{endDate}}" bindchange="bindDateChange">
+      <view class="picker-display">
+        <text>{{selectedDateText}}</text>
+        <text class="arrow">></text>
+      </view>
+    </picker>
+  </view>
+
+  <!-- 课程筛选 -->
+  <view class="filter-options">
+    <picker class="filter-picker" range="{{courseOptions}}" bindchange="onCourseFilterChange">
+      <view class="picker-label">课程: {{courseOptions[courseFilterIndex]}}</view>
+    </picker>
+    <picker class="filter-picker" range="{{coachOptions}}" bindchange="onCoachFilterChange">
+      <view class="picker-label">教练: {{coachOptions[coachFilterIndex]}}</view>
+    </picker>
+  </view>
+
+  <!-- 排课列表 -->
+  <view class="schedule-list">
+    <view class="schedule-item" wx:for="{{scheduleList}}" wx:key="id">
+      <view class="schedule-header">
+        <text class="schedule-time">{{item.startTime}}-{{item.endTime}}</text>
+        <text class="schedule-date">{{item.date}}</text>
+      </view>
+      
+      <view class="schedule-info">
+        <text class="course-name">{{item.courseName}}</text>
+        <text class="coach-name">{{item.coachName}}</text>
+        <view class="schedule-meta">
+          <text class="location">地点: {{item.location}}</text>
+          <text class="capacity">容量: {{item.bookedCount}}/{{item.maxCapacity}}</text>
+          <text class="status {{item.status}}">{{item.statusText}}</text>
+        </view>
+      </view>
+      
+      <view class="schedule-actions">
+        <button class="action-btn edit" bindtap="editSchedule" data-schedule="{{item}}">编辑</button>
+        <button class="action-btn delete" bindtap="deleteSchedule" data-id="{{item.id}}">删除</button>
+        <button class="action-btn toggle" bindtap="toggleScheduleStatus" data-id="{{item.id}}" data-status="{{item.status}}">
+          {{item.status === 'active' ? '取消' : '启用'}}
+        </button>
+      </view>
+    </view>
+  </view>
+
+  <!-- 分页 -->
+  <view class="pagination" wx:if="{{totalPages > 1}}">
+    <button class="page-btn" bindtap="prevPage" disabled="{{currentPage <= 1}}">上一页</button>
+    <text class="page-info">{{currentPage}} / {{totalPages}}</text>
+    <button class="page-btn" bindtap="nextPage" disabled="{{currentPage >= totalPages}}">下一页</button>
+  </view>
+
+  <!-- 空状态 -->
+  <view class="empty-state" wx:if="{{scheduleList.length === 0}}">
+    <text>{{emptyText}}</text>
+  </view>
+
+  <!-- 添加/编辑排课弹窗 -->
+  <view class="modal" wx:if="{{showScheduleModal}}">
+    <view class="modal-content">
+      <view class="modal-header">
+        <text class="modal-title">{{modalTitle}}</text>
+        <text class="close-btn" bindtap="closeModal">×</text>
+      </view>
+      <view class="modal-body">
+        <view class="form-group">
+          <text class="form-label">选择课程 *</text>
+          <picker class="form-picker" range="{{allCourses}}" range-key="name" bindchange="onFormCourseChange">
+            <view class="picker-display">{{formData.courseName || '请选择课程'}}</view>
+          </picker>
+        </view>
+        <view class="form-group">
+          <text class="form-label">选择教练 *</text>
+          <picker class="form-picker" range="{{allCoaches}}" range-key="name" bindchange="onFormCoachChange">
+            <view class="picker-display">{{formData.coachName || '请选择教练'}}</view>
+          </picker>
+        </view>
+        <view class="form-group">
+          <text class="form-label">日期 *</text>
+          <picker mode="date" value="{{formData.date}}" start="{{startDate}}" end="{{futureEndDate}}" bindchange="onFormDateChange">
+            <view class="picker-display">{{formData.date || '请选择日期'}}</view>
+          </picker>
+        </view>
+        <view class="form-group">
+          <text class="form-label">开始时间 *</text>
+          <picker mode="time" value="{{formData.startTime}}" bindchange="onFormStartTimeChange">
+            <view class="picker-display">{{formData.startTime || '请选择开始时间'}}</view>
+          </picker>
+        </view>
+        <view class="form-group">
+          <text class="form-label">结束时间 *</text>
+          <picker mode="time" value="{{formData.endTime}}" bindchange="onFormEndTimeChange">
+            <view class="picker-display">{{formData.endTime || '请选择结束时间'}}</view>
+          </picker>
+        </view>
+        <view class="form-group">
+          <text class="form-label">上课地点 *</text>
+          <input class="form-input" placeholder="请输入上课地点" value="{{formData.location}}" bindinput="onLocationInput"/>
+        </view>
+        <view class="form-group">
+          <text class="form-label">最大容量 *</text>
+          <input class="form-input" placeholder="请输入最大容量" value="{{formData.maxCapacity}}" bindinput="onMaxCapacityInput" type="number"/>
+        </view>
+      </view>
+      <view class="modal-footer">
+        <button class="btn btn-secondary" bindtap="closeModal">取消</button>
+        <button class="btn btn-primary" bindtap="saveSchedule">保存</button>
+      </view>
+    </view>
+  </view>
+
+  <!-- 自动排课弹窗 -->
+  <view class="modal" wx:if="{{showAutoScheduleModal}}">
+    <view class="modal-content">
+      <view class="modal-header">
+        <text class="modal-title">自动排课</text>
+        <text class="close-btn" bindtap="closeAutoScheduleModal">×</text>
+      </view>
+      <view class="modal-body">
+        <view class="form-group">
+          <text class="form-label">选择教练</text>
+          <picker class="form-picker" range="{{allCoaches}}" range-key="name" bindchange="onAutoCoachChange">
+            <view class="picker-display">{{autoFormData.coachName || '请选择教练'}}</view>
+          </picker>
+        </view>
+        <view class="form-group">
+          <text class="form-label">开始日期</text>
+          <picker mode="date" value="{{autoFormData.startDate}}" start="{{startDate}}" end="{{futureEndDate}}" bindchange="onAutoStartDateChange">
+            <view class="picker-display">{{autoFormData.startDate || '请选择开始日期'}}</view>
+          </picker>
+        </view>
+        <view class="form-group">
+          <text class="form-label">结束日期</text>
+          <picker mode="date" value="{{autoFormData.endDate}}" start="{{startDate}}" end="{{futureEndDate}}" bindchange="onAutoEndDateChange">
+            <view class="picker-display">{{autoFormData.endDate || '请选择结束日期'}}</view>
+          </picker>
+        </view>
+        <view class="form-group">
+          <text class="form-label">排课规则</text>
+          <radio-group bindchange="onRepeatRuleChange">
+            <label class="radio-label">
+              <radio value="daily" checked="{{autoFormData.repeatRule === 'daily'}}" />
+              <text>每天</text>
+            </label>
+            <label class="radio-label">
+              <radio value="weekly" checked="{{autoFormData.repeatRule === 'weekly'}}" />
+              <text>每周</text>
+            </label>
+            <label class="radio-label">
+              <radio value="custom" checked="{{autoFormData.repeatRule === 'custom'}}" />
+              <text>自定义</text>
+            </label>
+          </radio-group>
+        </view>
+      </view>
+      <view class="modal-footer">
+        <button class="btn btn-secondary" bindtap="closeAutoScheduleModal">取消</button>
+        <button class="btn btn-primary" bindtap="performAutoSchedule">生成排课</button>
+      </view>
+    </view>
+  </view>
+</view>

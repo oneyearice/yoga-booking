@@ -1,0 +1,236 @@
+/**pages/coach/students/students.wxss**/
+
+.container {
+  padding: 0;
+  background-color: #f5f5f5;
+  min-height: 100vh;
+  padding-bottom: 140rpx;
+}
+
+/* 搜索栏 */
+.search-bar {
+  display: flex;
+  background: white;
+  padding: 20rpx 40rpx;
+  border-bottom: 1rpx solid #eee;
+}
+
+.search-input {
+  flex: 1;
+  height: 60rpx;
+  line-height: 60rpx;
+  padding: 0 20rpx;
+  border: 1rpx solid #e5e5e5;
+  border-radius: 30rpx 0 0 30rpx;
+  font-size: 28rpx;
+}
+
+.search-btn {
+  width: 100rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+  background: #667eea;
+  color: white;
+  border-radius: 0 30rpx 30rpx 0;
+  font-size: 28rpx;
+  border: none;
+}
+
+/* 学员分类标签 */
+.student-tabs {
+  display: flex;
+  background: white;
+  border-bottom: 1rpx solid #eee;
+}
+
+.tab {
+  flex: 1;
+  text-align: center;
+  padding: 20rpx 0;
+  font-size: 28rpx;
+  color: #666;
+}
+
+.tab.active {
+  color: #667eea;
+  font-weight: bold;
+  position: relative;
+}
+
+.tab.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60rpx;
+  height: 6rpx;
+  background: #667eea;
+  border-radius: 3rpx;
+}
+
+/* 学员列表 */
+.student-list {
+  padding: 20rpx;
+}
+
+.student-item {
+  display: flex;
+  background: white;
+  border-radius: 15rpx;
+  padding: 25rpx;
+  margin-bottom: 20rpx;
+  box-shadow: 0 4rpx 12rpx rgba(0,0,0,0.05);
+}
+
+.student-avatar {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 50%;
+  background: #f0f0f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32rpx;
+  margin-right: 20rpx;
+  flex-shrink: 0;
+}
+
+.student-info {
+  flex: 1;
+}
+
+.student-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10rpx;
+}
+
+.student-name {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+  margin-right: 20rpx;
+}
+
+.student-gender {
+  font-size: 24rpx;
+  padding: 4rpx 12rpx;
+  border-radius: 20rpx;
+}
+
+.student-gender.male {
+  background-color: #e6f7ff;
+  color: #1890ff;
+}
+
+.student-gender.female {
+  background-color: #fff0f6;
+  color: #eb2f96;
+}
+
+.student-meta {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10rpx;
+  font-size: 26rpx;
+  color: #666;
+}
+
+.student-phone {
+  margin-right: 20rpx;
+}
+
+.student-level {
+  font-size: 24rpx;
+  padding: 4rpx 12rpx;
+  border-radius: 20rpx;
+}
+
+.student-level.beginner {
+  background-color: #f6ffed;
+  color: #52c41a;
+}
+
+.student-level.intermediate {
+  background-color: #e6f7ff;
+  color: #1890ff;
+}
+
+.student-level.advanced {
+  background-color: #fff2e8;
+  color: #fa8c16;
+}
+
+.student-stats {
+  display: flex;
+  font-size: 24rpx;
+  color: #999;
+}
+
+.stat-item {
+  margin-right: 20rpx;
+}
+
+.stat-item:last-child {
+  margin-right: 0;
+}
+
+/* 学员操作按钮 */
+.student-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 15rpx;
+  margin-left: 20rpx;
+  flex-shrink: 0;
+}
+
+.action-btn {
+  width: 80rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+  text-align: center;
+  border-radius: 10rpx;
+  font-size: 24rpx;
+  padding: 0;
+}
+
+.action-btn.contact {
+  background-color: #667eea;
+  color: white;
+  border: none;
+}
+
+.action-btn.detail {
+  background-color: #f0f0f0;
+  color: #666;
+  border: 1rpx solid #ddd;
+}
+
+/* 空状态 */
+.empty-state {
+  text-align: center;
+  padding: 120rpx 40rpx;
+  color: #999;
+  font-size: 28rpx;
+}
+
+/* 浮动操作按钮 */
+.floating-action {
+  position: fixed;
+  bottom: 100rpx;
+  right: 40rpx;
+}
+
+.fab {
+  width: 160rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  text-align: center;
+  background: #667eea;
+  color: white;
+  border-radius: 40rpx;
+  font-size: 26rpx;
+  border: none;
+  box-shadow: 0 4rpx 12rpx rgba(102, 126, 234, 0.4);
+}
