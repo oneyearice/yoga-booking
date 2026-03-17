@@ -27,13 +27,13 @@
         "text": "首页"
       },
       {
-        "pagePath": "pages/booking/list",
+        "pagePath": "pages/booking/list/list",
         "iconPath": "images/booking.png",
         "selectedIconPath": "images/booking-active.png",
         "text": "我的预约"
       },
       {
-        "pagePath": "pages/user/profile",
+        "pagePath": "pages/user/index/index",
         "iconPath": "images/profile.png",
         "selectedIconPath": "images/profile-active.png",
         "text": "个人中心"
