@@ -157,7 +157,9 @@
 .action-buttons .btn {
   flex: 1;
   height: 60rpx;
-  line-height: 60rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   text-align: center;
   border-radius: 30rpx;
   font-size: 26rpx;
