@@ -1,19 +1,19 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/courses/list/list",
-    "pages/courses/detail/detail",
-    "pages/booking/confirm/confirm",
-    "pages/booking/list/list",
-    "pages/booking/list/detail/detail",
-    "pages/user/index/index",
-    "pages/user/bookings/bookings",
-    "pages/coach/schedule/schedule",
-    "pages/coach/students/students",
-    "pages/admin/courses/courses",
-    "pages/admin/schedule/schedule",
-    "pages/admin/users/users",
-    "pages/admin/dashboard/dashboard"
+    "pages/courses/list",
+    "pages/courses/detail",
+    "pages/booking/confirm",
+    "pages/booking/list",
+    "pages/booking/detail",
+    "pages/user/index",
+    "pages/user/bookings",
+    "pages/coach/schedule",
+    "pages/coach/students",
+    "pages/admin/courses",
+    "pages/admin/schedule",
+    "pages/admin/users",
+    "pages/admin/dashboard"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -34,13 +34,13 @@
         "text": "首页"
       },
       {
-        "pagePath": "pages/booking/list/list",
+        "pagePath": "pages/booking/list",
         "iconPath": "images/booking.png",
         "selectedIconPath": "images/booking-active.png",
         "text": "我的预约"
       },
       {
-        "pagePath": "pages/user/index/index",
+        "pagePath": "pages/user/index",
         "iconPath": "images/profile.png",
         "selectedIconPath": "images/profile-active.png",
         "text": "个人中心"
