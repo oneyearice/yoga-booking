@@ -41,7 +41,7 @@
 }
 
 .action-btn {
-  flex: 1;
+  min-width: 200rpx;
   height: 80rpx;
   line-height: 80rpx;
   text-align: center;
