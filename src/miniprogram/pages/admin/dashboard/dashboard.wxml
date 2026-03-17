@@ -1,0 +1,81 @@
+<!--pages/admin/dashboard/dashboard.wxml-->
+<view class="container">
+  <!-- 页面标题 -->
+  <view class="page-title">
+    <text>管理中心</text>
+  </view>
+
+  <!-- 统计卡片 -->
+  <view class="stats-container" wx:if="{{!loading}}">
+    <view class="stat-card-group">
+      <view class="stat-card" bindtap="goToUserManagement">
+        <view class="card-icon">👥</view>
+        <view class="card-content">
+          <view class="stat-number">{{stats.totalUsers}}</view>
+          <view class="stat-label">总用户数</view>
+        </view>
+      </view>
+      <view class="stat-card" bindtap="goToCourseManagement">
+        <view class="card-icon">📚</view>
+        <view class="card-content">
+          <view class="stat-number">{{stats.totalCourses}}</view>
+          <view class="stat-label">总课程数</view>
+        </view>
+      </view>
+    </view>
+    
+    <view class="stat-card-group">
+      <view class="stat-card" bindtap="goToScheduleManagement">
+        <view class="card-icon">📅</view>
+        <view class="card-content">
+          <view class="stat-number">{{stats.todayBookings}}</view>
+          <view class="stat-label">今日预约</view>
+        </view>
+      </view>
+      <view class="stat-card">
+        <view class="card-icon">💰</view>
+        <view class="card-content">
+          <view class="stat-number">¥{{stats.revenue}}</view>
+          <view class="stat-label">今日收入</view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 最近活动 -->
+  <view class="section" wx:if="{{!loading && recentActivities.length > 0}}">
+    <view class="section-header">
+      <text class="section-title">最近活动</text>
+      <text class="refresh-btn" bindtap="refreshData">🔄</text>
+    </view>
+    <view class="activities-list">
+      <view class="activity-item" wx:for="{{recentActivities}}" wx:key="id">
+        <view class="activity-icon">
+          <text>{{item.type == 'booking' ? '📅' : '👤'}}</text>
+        </view>
+        <view class="activity-content">
+          <view class="activity-text">
+            <text wx:if="{{item.type == 'booking'}}">{{item.user}} 预约了 {{item.course}}</text>
+            <text wx:if="{{item.type == 'user'}}">{{item.user}} 注册了新账号</text>
+          </view>
+          <view class="activity-time">{{item.time}}</view>
+        </view>
+        <view class="activity-status {{item.status}}">
+          <text wx:if="{{item.status == 'confirmed'}}">✅</text>
+          <text wx:if="{{item.status == 'pending'}}">⏳</text>
+          <text wx:if="{{item.status == 'registered'}}">🆕</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 加载状态 -->
+  <view class="loading-container" wx:if="{{loading}}">
+    <view class="loading-text">加载中...</view>
+  </view>
+
+  <!-- 空状态 -->
+  <view class="empty-state" wx:if="{{!loading && recentActivities.length == 0}}">
+    <view class="empty-text">暂无活动记录</view>
+  </view>
+</view>

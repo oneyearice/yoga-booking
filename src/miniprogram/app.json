@@ -5,6 +5,7 @@
     "pages/courses/detail/detail",
     "pages/booking/confirm/confirm",
     "pages/booking/list/list",
+    "pages/booking/list/detail/detail",
     "pages/user/index/index",
     "pages/user/bookings/bookings",
     "pages/coach/schedule/schedule",

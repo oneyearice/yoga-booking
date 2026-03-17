@@ -3,9 +3,9 @@
 **项目**：yoga-booking  
 **测试时间**：2026-03-17 12:03 - 15:30  
 **测试人**：@tester  
-**版本**：commit 39015bb  
-**回归测试**：第 1 轮（12:45）  
-**结论**：❌ 不通过（1 个高严重度 Bug 未修复）
+**当前版本**：commit 8de28a7（12:34 回归测试）  
+**测试轮次**：第 3 轮回归测试  
+**结论**：❌ 不通过（BUG-005 未修复 + BUG-011 部分修复）
 
 ---
 
@@ -31,7 +31,33 @@
 | 边界测试 | 3 | 0 | 0 |
 | **总计** | 18 | 1 | 1 |
 
-**结论**: ❌ 不通过（BUG-005 高严重度未修复）
+### 第 2 轮回归测试（12:20）- commit 8de28a7
+| 类别 | 通过 | 失败 | 阻塞 |
+|------|------|------|------|
+| 用户端功能 | 4 | 2 | 1 |
+| 教练端功能 | 2 | 0 | 0 |
+| 管理员端功能 | 3 | 0 | 0 |
+| UI/UX 测试 | 5 | 0 | 0 |
+| 边界测试 | 3 | 0 | 0 |
+| **总计** | 17 | 2 | 1 |
+
+### 系统测试（12:30）- 路径分析完成
+| 类别 | 通过 | 失败 | 阻塞 |
+|------|------|------|------|
+| 路径一致性 | 2 | 20 | 3 |
+| 错误处理机制 | 1 | 0 | 0 |
+| 文档完整性 | 1 | 0 | 0 |
+| **总计** | 4 | 20 | 3 |
+
+### 第 3 轮回归测试（12:34）
+| 类别 | 通过 | 失败 | 阻塞 |
+|------|------|------|------|
+| 致命 Bug 修复 | 1 | 0 | 0 |
+| 高严重度 Bug 修复 | 1 | 1 | 0 |
+| 中严重度 Bug 修复 | 1 | 1 | 0 |
+| **总计** | 3 | 2 | 0 |
+
+**结论**: ❌ 不通过（BUG-005 未修复 + BUG-011 部分修复）
 
 ---
 
@@ -83,17 +109,31 @@
 
 ---
 
-## Bug 列表（第 1 轮全面测试）
+## Bug 列表及回归状态
 
-| ID | 严重度 | 类别 | 描述 | 复现步骤 | 期望结果 | 回归状态 |
-|----|--------|------|------|----------|----------|----------|
-| BUG-005 | 高 | 功能 | 首页跳转路径错误 | 1. 打开首页 2. 点击"立即预约" | 路径 `/pages/courses/list` 错误 | ✅ 已修复 |
-| BUG-006 | 高 | 功能 | 课程列表→详情页路径错误 | 1. 进入课程列表 2. 点击课程 | 路径 `/pages/courses/detail` 错误 | ✅ 已修复 |
-| BUG-007 | 中 | 资源 | 课程图片缺失 (liuyoga.jpg) | 1. 查看课程列表 | 流瑜伽图片无法加载 | ✅ 已修复 |
-| BUG-008 | 中 | 配置 | app.json pages 列表不完整 | 1. 检查 app.json | 缺少页面声明 | ✅ 已修复 |
-| BUG-009 | 低 | 体验 | 按钮缺少 hover 点击态 | 1. 查看 index.wxss | 无 hover 样式 | ✅ 已修复 |
+### 第 1 轮全面测试发现的 Bug
 
-**注意**：BUG-005 实际未完全修复，首页仍使用错误路径 `/pages/courses/list`（应为 `/pages/courses/list/list`）。
+| ID | 严重度 | 类别 | 描述 | 第 2 轮回归状态 |
+|----|--------|------|------|----------------|
+| BUG-005 | 高 | 功能 | 首页跳转路径错误（`/pages/courses/list` → `/pages/courses/list/list`） | ❌ 未修复 |
+| BUG-006 | 高 | 功能 | 课程列表→详情页路径错误 | ✅ 已修复 |
+| BUG-007 | 中 | 资源 | 课程图片缺失 (liuyoga.jpg) | ✅ 已修复 |
+| BUG-008 | 中 | 配置 | app.json pages 列表不完整 | ✅ 已修复 |
+| BUG-009 | 低 | 体验 | 按钮缺少 hover 点击态 | ✅ 已修复 |
+
+### 第 2 轮回归测试发现的新问题
+
+| ID | 严重度 | 类别 | 描述 | 第 3 轮回归状态 |
+|----|--------|------|------|----------------|
+| BUG-010 | 高 | 功能 | 首页→我的预约路径错误 | ✅ 已修复 |
+| BUG-011 | 中 | 功能 | 预约详情页路径不存在 | ⚠️ 部分修复 |
+
+### 第 3 轮回归测试发现
+
+| ID | 严重度 | 类别 | 描述 | 状态 |
+|----|--------|------|------|------|
+| BUG-012 | 致命 | 配置 | dashboard 页面不存在 | ✅ 已修复 |
+| BUG-013 | 中 | 配置 | booking/list/detail 页面未声明 | ⏳ 待修复 |
 
 ---
 
@@ -105,7 +145,9 @@
 | 12:35 | 代码审查完成 | 发现 5 个 Bug（高:2, 中:2, 低:1） |
 | 12:35 | 中期汇报 | 发送飞书通知 |
 | 12:40 | @coder 修复完成 | 通知回归测试 |
-| 12:45 | 回归测试完成 | 4/5 修复验证通过，1 个未修复 |
+| 12:45 | 第 1 轮回归完成 | 4/5 修复验证通过，1 个未修复 |
+| 12:18 | 收到新任务 | 回归测试（第一轮 Bug 修复）commit 8de28a7 |
+| 12:20 | 第 2 轮回归完成 | BUG-005 未修复 + 发现 2 个新路径问题 |
 
 ---
 
@@ -186,6 +228,176 @@ viewCourseDetail: function(e) {
 ```
 
 **验证结果**：hover 和 active 态已添加。
+
+---
+
+## 第 2 轮回归测试新增问题详情
+
+### BUG-005（高）：首页跳转路径 ❌ 仍未修复
+
+**检查位置**：`src/miniprogram/pages/index/index.js`
+
+**当前代码**（commit 8de28a7）：
+```javascript
+goToBooking: function() {
+  wx.navigateTo({
+    url: '/pages/courses/list',  // ❌ 错误：缺少最后的 /list
+  })
+}
+
+goToCourses: function() {
+  wx.navigateTo({
+    url: '/pages/courses/list',  // ❌ 错误：缺少最后的 /list
+  })
+}
+
+filterByCategory: function(e) {
+  wx.navigateTo({
+    url: `/pages/courses/list?category=${category.id}`,  // ❌ 错误
+  })
+}
+```
+
+**app.json 声明**：
+```json
+"pages": [
+  "pages/courses/list/list",
+  ...
+]
+```
+
+**正确路径应为**：`/pages/courses/list/list`
+
+**影响**：点击首页"立即预约"、"查看课程"按钮或分类筛选时，页面跳转失败。
+
+---
+
+### BUG-010（高）：首页→我的预约路径错误 ❌ 新增
+
+**检查位置**：`src/miniprogram/pages/index/index.js` - `viewMyBookings()`
+
+**当前代码**：
+```javascript
+viewMyBookings: function() {
+  wx.switchTab({
+    url: '/pages/booking/list',  // ❌ 错误：缺少最后的 /list
+  })
+}
+```
+
+**app.json 声明**：
+```json
+"pages": [
+  "pages/booking/list/list",
+  ...
+]
+```
+
+**正确路径应为**：`/pages/booking/list/list`
+
+**影响**：点击首页"查看更多"或"我的预约"时，页面跳转失败。
+
+---
+
+### BUG-011（中）：预约详情页路径不存在 ❌ 新增
+
+**检查位置**：`src/miniprogram/pages/index/index.js` - `viewBookingDetail()`
+
+**当前代码**：
+```javascript
+viewBookingDetail: function(e) {
+  wx.navigateTo({
+    url: `/pages/booking/detail?id=${booking.id}`,  // ❌ 错误：页面不存在
+  })
+}
+```
+
+**问题**：
+1. `pages/booking/detail` 未在 app.json 中声明
+2. 实际项目中也无此页面文件
+
+**建议**：
+- 方案 A：移除该功能（预约详情直接在 booking/list 中展示）
+- 方案 B：创建 `pages/booking/detail/detail` 页面并在 app.json 中声明
+
+---
+
+## 第 3 轮回归测试验证详情（12:34）
+
+### BUG-012（致命）：dashboard 页面不存在 ✅ 已修复
+
+**检查位置**：`src/miniprogram/pages/admin/dashboard/`
+
+**验证结果**：
+- ✅ dashboard.js 存在（1967 字节）
+- ✅ dashboard.wxml 存在（2971 字节）
+- ✅ dashboard.wxss 存在（2495 字节）
+- ✅ app.json 已声明 `pages/admin/dashboard/dashboard`
+
+---
+
+### BUG-010（高）：首页→我的预约路径 ✅ 已修复
+
+**检查位置**：`src/miniprogram/pages/index/index.js` - `viewMyBookings()`
+
+**当前代码**：
+```javascript
+viewMyBookings: function() {
+  wx.switchTab({
+    url: '/pages/booking/list/list',  // ✅ 正确
+  })
+}
+```
+
+**验证结果**：路径已修正，与 app.json 一致。
+
+---
+
+### BUG-005（高）：首页→课程列表路径 ❌ 未修复
+
+**检查位置**：`src/miniprogram/pages/index/index.js` - `goToBooking()`, `goToCourses()`, `filterByCategory()`
+
+**当前代码**：
+```javascript
+goToBooking: function() {
+  wx.navigateTo({
+    url: '/pages/courses/list',  // ❌ 错误：应为 /pages/courses/list/list
+  })
+}
+
+goToCourses: function() {
+  wx.navigateTo({
+    url: '/pages/courses/list',  // ❌ 错误：应为 /pages/courses/list/list
+  })
+}
+
+filterByCategory: function(e) {
+  wx.navigateTo({
+    url: `/pages/courses/list?category=${category.id}`,  // ❌ 错误
+  })
+}
+```
+
+**影响**：点击首页"立即预约"、"查看课程"或分类筛选时，页面跳转失败。
+
+---
+
+### BUG-011/013（中）：预约详情页 ⚠️ 部分修复
+
+**当前状态**：
+- ✅ 页面文件已创建：`pages/booking/list/detail/detail.{js,wxml,wxss}`
+- ❌ app.json 未声明该页面
+
+**当前代码**（index.js）：
+```javascript
+viewBookingDetail: function(e) {
+  wx.navigateTo({
+    url: `/pages/booking/list/detail?id=${booking.id}`,  // 路径正确，但未声明
+  })
+}
+```
+
+**需要修复**：在 app.json 的 pages 数组中添加 `"pages/booking/list/detail/detail"`
 
 ---
 

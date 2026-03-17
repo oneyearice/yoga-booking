@@ -82,7 +82,7 @@ Page({
   // 立即预约按钮
   goToBooking: function() {
     wx.navigateTo({
-      url: '/pages/courses/list',
+      url: '/pages/courses/list/list',
       fail: (err) => {
         console.error('页面跳转失败:', err);
       }
@@ -92,7 +92,7 @@ Page({
   // 查看所有课程
   goToCourses: function() {
     wx.navigateTo({
-      url: '/pages/courses/list',
+      url: '/pages/courses/list/list',
       fail: (err) => {
         console.error('页面跳转失败:', err);
       }
@@ -103,7 +103,7 @@ Page({
   filterByCategory: function(e) {
     const category = e.currentTarget.dataset.category
     wx.navigateTo({
-      url: `/pages/courses/list?category=${category.id}`,
+      url: `/pages/courses/list/list?category=${category.id}`,
       fail: (err) => {
         console.error('页面跳转失败:', err);
       }
@@ -124,7 +124,7 @@ Page({
   // 查看我的预约
   viewMyBookings: function() {
     wx.switchTab({
-      url: '/pages/booking/list',
+      url: '/pages/booking/list/list',
       fail: (err) => {
         console.error('页面跳转失败:', err);
       }
@@ -135,7 +135,7 @@ Page({
   viewBookingDetail: function(e) {
     const booking = e.currentTarget.dataset.booking
     wx.navigateTo({
-      url: `/pages/booking/detail?id=${booking.id}`,
+      url: `/pages/booking/list/detail?id=${booking.id}`,
       fail: (err) => {
         console.error('页面跳转失败:', err);
       }
