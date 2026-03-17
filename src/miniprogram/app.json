@@ -1,12 +1,12 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/course/list",
-    "pages/course/detail",
-    "pages/booking/list",
-    "pages/user/profile",
-    "pages/coach/schedule",
-    "pages/admin/dashboard"
+    "pages/courses/list/list",
+    "pages/courses/detail/detail",
+    "pages/booking/list/list",
+    "pages/user/index/index",
+    "pages/coach/schedule/schedule",
+    "pages/admin/dashboard/dashboard"
   ],
   "window": {
     "backgroundTextStyle": "light",
