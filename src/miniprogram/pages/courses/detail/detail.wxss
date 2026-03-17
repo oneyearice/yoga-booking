@@ -216,6 +216,7 @@
   font-size: 32rpx;
   font-weight: bold;
   margin: 0 10rpx;
+  transition: all 0.2s ease;
 }
 
 .action-btn:first-child {
@@ -228,4 +229,10 @@
 
 .action-btn[disabled] {
   opacity: 0.5;
+}
+
+.action-btn:hover,
+.action-btn:active {
+  opacity: 0.85;
+  transform: scale(0.98);
 }

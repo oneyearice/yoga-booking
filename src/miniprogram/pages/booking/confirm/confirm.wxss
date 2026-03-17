@@ -210,4 +210,11 @@
   border-radius: 40rpx;
   font-size: 32rpx;
   font-weight: bold;
+  transition: all 0.2s ease;
+}
+
+.confirm-btn:hover,
+.confirm-btn:active {
+  opacity: 0.85;
+  transform: scale(0.98);
 }

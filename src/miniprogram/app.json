@@ -3,9 +3,15 @@
     "pages/index/index",
     "pages/courses/list/list",
     "pages/courses/detail/detail",
+    "pages/booking/confirm/confirm",
     "pages/booking/list/list",
     "pages/user/index/index",
+    "pages/user/bookings/bookings",
     "pages/coach/schedule/schedule",
+    "pages/coach/students/students",
+    "pages/admin/courses/courses",
+    "pages/admin/schedule/schedule",
+    "pages/admin/users/users",
     "pages/admin/dashboard/dashboard"
   ],
   "window": {
