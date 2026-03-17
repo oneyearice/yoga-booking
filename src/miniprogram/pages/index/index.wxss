@@ -35,6 +35,7 @@
 
 .quick-actions {
   display: flex;
+  justify-content: center;
   gap: 20rpx;
 }
 
