@@ -1,5 +1,5 @@
 // booking/list/list.js
-const { showError, showModal, loading } = require('../../../utils/errorHandler');
+const { showError, showModal, loading } = require('../../utils/errorHandler');
 
 Page({
   data: {

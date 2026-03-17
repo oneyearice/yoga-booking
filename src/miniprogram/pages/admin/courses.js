@@ -1,5 +1,5 @@
 // pages/admin/courses/courses.js
-const { validate, showError, showModal, loading } = require('../../../utils/errorHandler');
+const { validate, showError, showModal, loading } = require('../../utils/errorHandler');
 
 Page({
   data: {

@@ -1,5 +1,5 @@
 // courses/detail/detail.js
-const { showError, showModal, loading } = require('../../../utils/errorHandler');
+const { showError, showModal, loading } = require('../../utils/errorHandler');
 
 Page({
   data: {
