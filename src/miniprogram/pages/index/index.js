@@ -135,7 +135,7 @@ Page({
   viewBookingDetail: function(e) {
     const booking = e.currentTarget.dataset.booking
     wx.navigateTo({
-      url: `/pages/booking/list/detail?id=${booking.id}`,
+      url: `/pages/booking/detail?id=${booking.id}`,
       fail: (err) => {
         console.error('页面跳转失败:', err);
       }

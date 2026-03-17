@@ -148,7 +148,7 @@ Page({
   viewCourseDetail: function(e) {
     const courseId = e.currentTarget.dataset.id;
     wx.navigateTo({
-      url: `/pages/courses/detail/detail?id=${courseId}`
+      url: `/pages/courses/detail?id=${courseId}`
     });
   }
 });
