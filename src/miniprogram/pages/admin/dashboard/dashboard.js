@@ -52,7 +52,7 @@ Page({
   // 跳转到用户管理
   goToUserManagement: function() {
     wx.navigateTo({
-      url: '/pages/admin/users/users',
+      url: '/pages/admin/users',
       fail: (err) => {
         console.error('页面跳转失败:', err);
       }
@@ -62,7 +62,7 @@ Page({
   // 跳转到课程管理
   goToCourseManagement: function() {
     wx.navigateTo({
-      url: '/pages/admin/courses/courses',
+      url: '/pages/admin/courses',
       fail: (err) => {
         console.error('页面跳转失败:', err);
       }
@@ -72,7 +72,7 @@ Page({
   // 跳转到排课管理
   goToScheduleManagement: function() {
     wx.navigateTo({
-      url: '/pages/admin/schedule/schedule',
+      url: '/pages/admin/schedule',
       fail: (err) => {
         console.error('页面跳转失败:', err);
       }
