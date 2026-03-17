@@ -56,27 +56,24 @@ Page({
 
   // 前往资料编辑
   goToProfileEdit: function() {
-    wx.navigateTo({
-      url: '/pages/user/profile-edit',
-      fail: (err) => {
-        console.error('页面跳转失败:', err);
-      }
+    wx.showModal({
+      title: '提示',
+      content: '功能开发中，敬请期待',
+      showCancel: false
     });
   },
 
   // 前往充值
   goToRecharge: function() {
-    wx.navigateTo({
-      url: '/pages/user/recharge',
-      fail: (err) => {
-        console.error('页面跳转失败:', err);
-      }
+    wx.showModal({
+      title: '提示',
+      content: '功能开发中，敬请期待',
+      showCancel: false
     });
   },
 
   // 前往我的预约
   goToMyBookings: function() {
-    // 优化导航：立即执行，不进行不必要的检查
     wx.navigateTo({
       url: '/pages/booking/list',
       fail: (err) => {
@@ -87,89 +84,81 @@ Page({
 
   // 前往课程记录
   goToCourseHistory: function() {
-    wx.navigateTo({
-      url: '/pages/user/course-history',
-      fail: (err) => {
-        console.error('页面跳转失败:', err);
-      }
+    wx.showModal({
+      title: '提示',
+      content: '功能开发中，敬请期待',
+      showCancel: false
     });
   },
 
   // 前往我的收藏
   goToFavorites: function() {
-    wx.navigateTo({
-      url: '/pages/user/favorites',
-      fail: (err) => {
-        console.error('页面跳转失败:', err);
-      }
+    wx.showModal({
+      title: '提示',
+      content: '功能开发中，敬请期待',
+      showCancel: false
     });
   },
 
   // 前往优惠券
   goToCoupons: function() {
-    wx.navigateTo({
-      url: '/pages/user/coupons',
-      fail: (err) => {
-        console.error('页面跳转失败:', err);
-      }
+    wx.showModal({
+      title: '提示',
+      content: '功能开发中，敬请期待',
+      showCancel: false
     });
   },
 
   // 前往预约记录
   goToBookingRecords: function() {
-    wx.navigateTo({
-      url: '/pages/user/booking-records',
-      fail: (err) => {
-        console.error('页面跳转失败:', err);
-      }
+    wx.showModal({
+      title: '提示',
+      content: '功能开发中，敬请期待',
+      showCancel: false
     });
   },
 
   // 前往课时记录
   goToCreditHistory: function() {
-    wx.navigateTo({
-      url: '/pages/user/credit-history',
-      fail: (err) => {
-        console.error('页面跳转失败:', err);
-      }
+    wx.showModal({
+      title: '提示',
+      content: '功能开发中，敬请期待',
+      showCancel: false
     });
   },
 
   // 前往地址管理
   goToAddressManage: function() {
-    wx.navigateTo({
-      url: '/pages/user/address',
-      fail: (err) => {
-        console.error('页面跳转失败:', err);
-      }
+    wx.showModal({
+      title: '提示',
+      content: '功能开发中，敬请期待',
+      showCancel: false
     });
   },
 
   // 前往客服中心
   goToCustomerService: function() {
-    wx.navigateTo({
-      url: '/pages/user/customer-service',
-      fail: (err) => {
-        console.error('页面跳转失败:', err);
-      }
+    wx.showModal({
+      title: '提示',
+      content: '功能开发中，敬请期待',
+      showCancel: false
     });
   },
 
   // 前往设置
   goToSettings: function() {
-    wx.navigateTo({
-      url: '/pages/user/settings',
-      fail: (err) => {
-        console.error('页面跳转失败:', err);
-      }
+    wx.showModal({
+      title: '提示',
+      content: '功能开发中，敬请期待',
+      showCancel: false
     });
   },
 
   // 按状态查看预约
   goToMyBookingsByStatus: function(e) {
     const status = e.currentTarget.dataset.status;
-    wx.navigateTo({
-      url: `/pages/booking/list?status=${status}`,
+    wx.switchTab({
+      url: '/pages/booking/list',
       fail: (err) => {
         console.error('页面跳转失败:', err);
       }
